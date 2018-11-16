@@ -125,47 +125,63 @@ class Game extends Component {
       round8:[],
       end: false,
       round: 16,
-      sequence: 0,
+      sequence: 0
     }
   }
 
-  async handleChange(id) {
-    console.log(id)
-    await this.setState((preState)=>({
-      sequence: preState.sequence + 1 // sequence 1씩 증
-    })); 
-    await this.setState((preState) => ({
-      views: [
-        base[2 * this.state.sequence],
-        base[2 * this.state.sequence + 1]
-      ]
-    }));
-    const round8 = this.state.round8.slice()
-    round8.push(base[id-1])
-    this.setState({
-      round8: round8
-    })
-    console.log(this.state.round8)
-  }
-
-  componentDidUpdate(){ // state가 업데이트 되고, 컴포넌트가 render 된 후에 실행되는 함수
-    // 라운드 완료시
-    if ((this.state.sequence * 2) === this.state.round) {
-      alert('16강 완료. 8강으로 넘어갑니다.');
-      this.setState((prevState) => ({
-        round: prevState.round / 2,
+  count = 0
+  async handleChange(id, db) {
+    db = base
+    if(this.state.round8.length === 7) {
+      const round8 = this.state.round8.slice()
+      round8.push(db[id-1])
+      this.count = 0;
+      db = round8;
+      await this.setState({
+        round8: round8,
         sequence: 0,
+        round: 8,
         views: [
-          this.state.round8[0],
-          this.state.round8[1]
+          db[2 * this.count],
+          db[2 * this.count + 1]
         ]
-      }))
+      })
+      console.log(this.state)
+    } else {
+      this.count++
+      const round8 = this.state.round8.slice()
+      round8.push(db[id-1])
+
+      await this.setState((prevState)=>({
+        sequence: prevState.sequence + 1, // sequence 1씩 증
+        views: [
+          db[2 * this.count],
+          db[2 * this.count + 1]
+        ],
+        round8: round8
+      }));
+      console.log(this.state.round8)
     }
   }
+
+  // componentDidUpdate(){ // state가 업데이트 되고, 컴포넌트가 render 된 후에 실행되는 함수
+  //   // 라운드 완료시
+  //   if ((this.state.sequence * 2) === this.state.round) {
+  //     this.setState((prevState) => ({
+  //       round: prevState.round / 2,
+  //       sequence: 0,
+  //       db: this.state.round8,
+  //       views: [
+  //         this.state.round8[0],
+  //         this.state.round8[1]
+  //       ]
+  //     }))
+  //     alert('16강 완료. 8강으로 넘어갑니다.');
+  //   }
+  // }
 
   render() {
-    const {views, end, round, sequence} = this.state;
-    console.log(this.state);
+    const {views, end, round, sequence, db} = this.state;
     return (
       <div className="game">
         <GameTitle round={round} sequence={sequence + 1}/>
@@ -177,7 +193,8 @@ class Game extends Component {
                 name={view.name}
                 group={view.group}
                 img={view.img}
-                onChange={(id) => this.handleChange(id)}
+                db={db}
+                onChange={(id, db) => this.handleChange(view.id, db)}
               />
             )
           })
@@ -188,4 +205,4 @@ class Game extends Component {
   }
 }
 
-export default Game; 
+export default Game;
