@@ -18,11 +18,20 @@ class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data : data
+      data : data,
+      end: false,
+      title: 16,
+      sequence: 1,
+
     }
   }
   render() {
-    const {data} = this.state
+    const {data, end, title, sequence} = this.state
+    const randomArr = new Array(title)
+    for(let i=0; i < randomArr.length; i++) {
+      
+    }
+    
     return (
       <div className="game">
         <GameTitle />
