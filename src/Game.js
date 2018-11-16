@@ -7,22 +7,28 @@ import './css/Game.scss'
 const data = [{
   name: '장원영',
   group: '아이즈원',
-  img: ''
+  img: 'http://img.enews24.cjenm.skcdn.com/News/Contents/20180901/33179876.jpg'
+}, {
+  name: '야부키 나코',
+  group: '아이즈원',
+  img: 'https://t1.daumcdn.net/cfile/tistory/9989E4445B3735180C'
 }]
+
 class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '장원영'
-      group: '아이즈원'
-      
+      data : data
     }
   }
   render() {
+    const {data} = this.state
     return (
-      <div>
+      <div className="game">
         <GameTitle />
-        <GameDraw />
+        <GameDraw name={data[0].name} group={data[0].group} img={data[0].img}/>
+        <div className="vs">VS</div>
+        <GameDraw name={data[1].name} group={data[1].group} img={data[1].img} />
       </div>
     );
   }

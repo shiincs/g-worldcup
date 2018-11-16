@@ -3,7 +3,7 @@ import './css/Header.scss'
 
 const Header = () => {
   return (
-    <div>
+    <div className="header">
       <h1>걸그룹 월드컵!!!!</h1>
     </div>
   );
