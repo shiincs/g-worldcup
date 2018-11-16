@@ -129,7 +129,8 @@ class Game extends Component {
     }
   }
 
-  async handleChange(i) {
+  async handleChange(id) {
+    console.log(id)
     await this.setState((preState)=>({
       sequence: preState.sequence + 1 // sequence 1씩 증
     })); 
@@ -139,9 +140,12 @@ class Game extends Component {
         base[2 * this.state.sequence + 1]
       ]
     }));
+    const round8 = this.state.round8.slice()
+    round8.push(base[id-1])
     this.setState({
-      round8: [{}]
+      round8: round8
     })
+    console.log(this.state.round8)
   }
 
   componentDidUpdate(){ // state가 업데이트 되고, 컴포넌트가 render 된 후에 실행되는 함수
@@ -150,7 +154,11 @@ class Game extends Component {
       alert('16강 완료. 8강으로 넘어갑니다.');
       this.setState((prevState) => ({
         round: prevState.round / 2,
-        sequence: 0
+        sequence: 0,
+        views: [
+          this.state.round8[0],
+          this.state.round8[1]
+        ]
       }))
       return;
     }
@@ -166,10 +174,11 @@ class Game extends Component {
           views.map((view, index) => {
             return (
               <GameDraw key={index}
+                id={view.id}
                 name={view.name}
                 group={view.group}
                 img={view.img}
-                onChange={() => this.handleChange(index)}
+                onChange={(id) => this.handleChange(id)}
               />
             )
           })

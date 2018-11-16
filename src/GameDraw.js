@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import './css/GameDraw.scss'
 
 class GameDraw extends Component {
-  handleClick(e) {
-    console.log(e.target)
-    this.props.onChange()
+  handleClick(id) {
+    // console.log(id)
+    this.props.onChange(id)
   }
 
   render() {
-    const {name, group, img} = this.props;
+    const {id, name, group, img} = this.props;
     return (
-      <div className="gameDraw" onClick={(e) => {this.handleClick(e)}}>
+      <div className="gameDraw" onClick={() => {this.handleClick(id)}}>
         <img className="img" src={img}></img>
         <span className="name">{name}</span>
         <span className="group">({group})</span>
