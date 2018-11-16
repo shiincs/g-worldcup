@@ -65,6 +65,26 @@ const data = [
     group: '갓자친구',
     img: 'https://i.redd.it/7samw4ht12v01.jpg'
   },
+  {
+    name: '미연',
+    group: '(여자)아이들',
+    img: 'https://f.ptcdn.info/219/057/000/p7ldywizinTuTvUK5AA-o.jpg'
+  },
+  {
+    name: '정채연',
+    group: '다이아',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/180224_%EC%98%81%ED%99%94_%EB%9D%BC%EB%9D%BC_%EC%8B%A0%EC%B4%8C_%EB%AC%B4%EB%8C%80%EC%9D%B8%EC%82%AC_%EB%8B%A4%EC%9D%B4%EC%95%84_%EC%A0%95%EC%B1%84%EC%97%B0_%EC%A7%81%EC%B0%8D_%286%29.jpg'
+  },
+  {
+    name: '아이유',
+    group: 'solo',
+    img: 'https://i.ytimg.com/vi/frrBSyEqS6c/maxresdefault.jpg'
+  },
+  {
+    name: '솔라',
+    group: '마마무',
+    img: 'http://img.piku.co.kr/w/uploads/18ssPD/492f4b5a701c6548e49c91db5d793013_thumb.jpg'
+  }
 ]
 
 class Game extends Component {
