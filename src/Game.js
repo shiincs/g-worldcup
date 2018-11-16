@@ -4,7 +4,7 @@ import GameDraw from './GameDraw'
 import './css/Game.scss'
 
 
-const data = [
+const base = [
   {
     name: '장원영',
     group: 'IZONE',
@@ -102,30 +102,59 @@ class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data1: data[0],
-      data2: data[1],
+      views:[
+        base[0],
+        base[1]
+      ],
       end: false,
-      title: 16,
-      sequence: 1,
+      round: 16,
+      sequence: 0,
     }
   }
 
-  handleChange() {
-    this.setState({
-      data1: data[2],
-      data2: data[3]
-    })
+  async handleChange(i) {
+    await this.setState((preState)=>({
+      sequence: preState.sequence + 1 // sequence 1씩 증
+    })); 
+    await this.setState((preState) => ({
+      views: [
+        base[2 * this.state.sequence],
+        base[2 * this.state.sequence + 1]
+      ]
+    })); 
+  }
+
+  componentDidUpdate(){ // state가 업데이트 되고, 컴포넌트가 render 된 후에 실행되는 함수
+    // 라운드 완료시
+    if ((this.state.sequence * 2) === this.state.round) {
+      alert('16강 완료. 8강으로 넘어갑니다.');
+      this.setState((prevState) => ({
+        round: prevState.round / 2,
+        sequence: 0
+      }))
+      return;
+    }
   }
 
   render() {
-    const {data1, data2, end, title, sequence} = this.state
-    
+    const {views, end, round, sequence} = this.state;
+    console.log(this.state);
     return (
       <div className="game">
-        <GameTitle />
-        <GameDraw name={data1.name} group={data1.group} img={data1.img} onChange={() => this.handleChange()} />
+        <GameTitle round={round} sequence={sequence + 1}/>
+        {
+          views.map((view, index) => {
+            return (
+              <GameDraw key={index}
+                name={view.name}
+                group={view.group}
+                img={view.img}
+                onChange={() => this.handleChange(index)}
+              />
+            )
+          })
+        }
         <div className="vs">VS</div>
-        <GameDraw name={data2.name} group={data2.group} img={data2.img} />
       </div>
     );
   }
