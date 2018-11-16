@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import GameTitle from './GameTitle'
 import GameDraw from './GameDraw'
 import './css/Game.scss'
+import { throws } from 'assert';
 
 
 const base = [
@@ -123,44 +124,124 @@ class Game extends Component {
         base[1]
       ],
       round8:[],
+      round4:[],
+      round2: [],
       end: false,
       round: 16,
       sequence: 0,
     }
   }
-
+  count = 0;
   async handleChange(id) {
-    console.log(id)
-    await this.setState((preState)=>({
-      sequence: preState.sequence + 1 // sequence 1씩 증
-    })); 
-    await this.setState((preState) => ({
-      views: [
-        base[2 * this.state.sequence],
-        base[2 * this.state.sequence + 1]
-      ]
-    }));
-    const round8 = this.state.round8.slice()
-    round8.push(base[id-1])
-    this.setState({
-      round8: round8
-    })
-    console.log(this.state.round8)
-  }
+    if (this.state.round2.length === 2) {
+     alert(this.state.round2.find(item => item.id === id).name)
 
-  componentDidUpdate(){ // state가 업데이트 되고, 컴포넌트가 render 된 후에 실행되는 함수
-    // 라운드 완료시
-    if ((this.state.sequence * 2) === this.state.round) {
-      alert('16강 완료. 8강으로 넘어갑니다.');
+    }  
+    if (this.state.round2.length === 1) {
+      // 결승 초기화면
+      this.count = 0;
+      const round2 = this.state.round2.slice()
+      round2.push(this.state.round4.find(item => item.id === id))
+      await this.setState({
+        round2: round2
+      });
       this.setState((prevState) => ({
-        round: prevState.round / 2,
+        sequence: 0,
+        views: [
+          this.state.round2[0],
+          this.state.round2[1],
+        ],
+        round: 2
+      }));
+
+    }  
+    if (this.state.round4.length > 3 && this.state.round2.length < 1) {
+      // 4강 로직
+      this.count++;
+      const round2 = this.state.round2.slice()
+      round2.push(this.state.round4.find(item => {
+        return item.id === id;
+      }))
+      this.setState((prevState) => ({
+        sequence: prevState.sequence + 1,
+        views: [
+          this.state.round4[2 * this.count],
+          this.state.round4[2 * this.count + 1]
+        ],
+        round2: round2
+      }));
+    }  
+
+    if (this.state.round4.length === 3) {
+      // 4강 초기화면
+      this.count = 0;
+      const round4 = this.state.round4.slice()
+      round4.push(this.state.round8.find(item => item.id === id))
+      await this.setState({
+        round4: round4
+      });
+      this.setState((prevState) => ({
+        sequence: 0,
+        views: [
+          this.state.round4[0],
+          this.state.round4[1],
+        ],
+        round: 4
+      }));
+
+    }  
+
+    if (this.state.round8.length > 7 && this.state.round4.length < 3){
+      // 8강 로직
+      this.count++;
+      const round4 = this.state.round4.slice()
+      round4.push(this.state.round8.find(item => {
+        return item.id === id;
+      }))
+      this.setState((prevState) => ({
+        sequence: prevState.sequence + 1,
+        views: [
+          this.state.round8[2 * this.count],
+          this.state.round8[2 * this.count + 1]
+        ],
+        round4: round4
+      }));
+    }  
+
+    if (this.state.round8.length === 7){
+      // 8강 초기화면
+      this.count= 0;
+      const round8 = this.state.round8.slice()
+      round8.push(base.find(item => item.id === id));
+      await this.setState({
+        round8: round8
+      });
+      this.setState((prevState) => ({
         sequence: 0,
         views: [
           this.state.round8[0],
-          this.state.round8[1]
-        ]
-      }))
+          this.state.round8[1],
+        ],
+        round: 8
+      }));
+
+    }  
+    if (this.state.round8.length < 7){
+      // 16강 로직
+      this.count++;
+      const round8 = this.state.round8.slice()
+      round8.push(base[id - 1])
+
+      this.setState((prevState) => ({
+        sequence: prevState.sequence + 1, // sequence 1씩 증
+        views: [
+          base[2 * this.count],
+          base[2 * this.count + 1]
+        ],
+        round8: round8
+      })); 
     }
+    
   }
 
   render() {
