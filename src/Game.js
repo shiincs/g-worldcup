@@ -18,7 +18,7 @@ const data = [
   {
     name: '미나토자키 사나',
     group: 'twice',
-    img: 'http://www.city.kr/files/attach/images/238/887/202/009/09d75704c621abc12d25663dd306c795.jpg'
+    img: 'https://pbs.twimg.com/media/C0xwG_0UUAAeRz0.jpg'
   },
   {
     name: '갓세정',
@@ -87,21 +87,45 @@ const data = [
   }
 ]
 
+// const randomArr = new Array(16)
+
+// function random(arr, data) {
+//   for(let i=0; i < arr.length; i++) {
+//     arr.push(data[Math.floor(Math.random() * 2)])
+//   }
+// }
+
+// random(randomArr, data)
+// console.log(randomArr)
+
 class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data : data
+      data1: data[0],
+      data2: data[1],
+      end: false,
+      title: 16,
+      sequence: 1,
     }
   }
+
+  handleChange() {
+    this.setState({
+      data1: data[2],
+      data2: data[3]
+    })
+  }
+
   render() {
-    const {data} = this.state
+    const {data1, data2, end, title, sequence} = this.state
+    
     return (
       <div className="game">
         <GameTitle />
-        <GameDraw name={data[0].name} group={data[0].group} img={data[0].img}/>
+        <GameDraw name={data1.name} group={data1.group} img={data1.img} onChange={() => this.handleChange()} />
         <div className="vs">VS</div>
-        <GameDraw name={data[1].name} group={data[1].group} img={data[1].img} />
+        <GameDraw name={data2.name} group={data2.group} img={data2.img} />
       </div>
     );
   }
