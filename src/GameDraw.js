@@ -7,9 +7,10 @@ class GameDraw extends Component {
   }
   render() {
     const {name, group, img} = this.props;
+    const path = './images/'
     return (
       <div className="gameDraw" onClick={() => {this.handleClick()}}>
-        <img className="img" src={img}></img>
+        <img className="img" src={path+img}></img>
         <span className="name">{name}</span>
         <span className="group">({group})</span>
       </div>
