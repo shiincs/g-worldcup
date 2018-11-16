@@ -106,6 +106,7 @@ class Game extends Component {
         base[0],
         base[1]
       ],
+      round8:[],
       end: false,
       round: 16,
       sequence: 0,
@@ -121,7 +122,10 @@ class Game extends Component {
         base[2 * this.state.sequence],
         base[2 * this.state.sequence + 1]
       ]
-    })); 
+    }));
+    this.setState({
+      round8: [{}]
+    })
   }
 
   componentDidUpdate(){ // state가 업데이트 되고, 컴포넌트가 render 된 후에 실행되는 함수
