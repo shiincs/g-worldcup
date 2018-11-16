@@ -14,30 +14,45 @@ const data = [{
   img: 'https://t1.daumcdn.net/cfile/tistory/9989E4445B3735180C'
 }]
 
+// const randomArr = new Array(16)
+
+// function random(arr, data) {
+//   for(let i=0; i < arr.length; i++) {
+//     arr.push(data[Math.floor(Math.random() * 2)])
+//   }
+// }
+
+// random(randomArr, data)
+// console.log(randomArr)
+
 class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data : data,
+      data1: data[0],
+      data2: data[1],
       end: false,
       title: 16,
       sequence: 1,
-
     }
   }
+
+  handleChange() {
+    this.setState({
+      data1: data[2],
+      data2: data[3]
+    })
+  }
+
   render() {
-    const {data, end, title, sequence} = this.state
-    const randomArr = new Array(title)
-    for(let i=0; i < randomArr.length; i++) {
-      
-    }
+    const {data1, data2, end, title, sequence} = this.state
     
     return (
       <div className="game">
         <GameTitle />
-        <GameDraw name={data[0].name} group={data[0].group} img={data[0].img}/>
+        <GameDraw name={data1.name} group={data1.group} img={data1.img} onChange={() => this.handleChange()} />
         <div className="vs">VS</div>
-        <GameDraw name={data[1].name} group={data[1].group} img={data[1].img} />
+        <GameDraw name={data2.name} group={data2.group} img={data2.img} />
       </div>
     );
   }
