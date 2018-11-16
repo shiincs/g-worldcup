@@ -4,7 +4,7 @@ import './css/Header.scss'
 const Header = () => {
   return (
     <div className="header">
-      <h1>걸그룹 월드컵!!!!</h1>
+      <h1>Tournament App</h1>
     </div>
   );
 };
