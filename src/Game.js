@@ -18,7 +18,7 @@ const data = [
   {
     name: '미나토자키 사나',
     group: 'twice',
-    img: 'http://www.city.kr/files/attach/images/238/887/202/009/09d75704c621abc12d25663dd306c795.jpg'
+    img: 'https://pbs.twimg.com/media/C0xwG_0UUAAeRz0.jpg'
   },
   {
     name: '갓세정',
