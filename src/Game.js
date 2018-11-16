@@ -104,28 +104,36 @@ class Game extends Component {
     this.state = {
       data1: data[0],
       data2: data[1],
+      data: data,
       end: false,
-      title: 16,
+      stage: 16,
       sequence: 1,
+      index: 0
     }
   }
 
   handleChange() {
-    this.setState({
+    this.setState((prevState) => ({
       data1: data[2],
       data2: data[3]
-    })
+    }))
+  }
+
+  handleIndex() {
+    this.setState((prevState) => ({
+      index: prevState.index + 1
+    }))
   }
 
   render() {
-    const {data1, data2, end, title, sequence} = this.state
-    
+    const {data1, data2, end, stage, sequence, data, index} = this.state
+    console.log(index)
     return (
       <div className="game">
-        <GameTitle />
-        <GameDraw name={data1.name} group={data1.group} img={data1.img} onChange={() => this.handleChange()} />
+        <GameTitle stage={stage} nowSequence={sequence} maxSequence={stage/2}/>
+        <GameDraw data={data} index={index} name={data[index].name} group={data[index].group} img={data[index].img} onChange={() => this.handleChange()} onIndex={() => this.handleIndex()}/>
         <div className="vs">VS</div>
-        <GameDraw name={data2.name} group={data2.group} img={data2.img} />
+        <GameDraw data={data} index={index} name={data[index].name} group={data[index].group} img={data[index].img} onChange={() => this.handleChange()} onIndex={() => this.handleIndex()}/>
       </div>
     );
   }

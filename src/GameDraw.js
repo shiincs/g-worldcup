@@ -5,6 +5,7 @@ class GameDraw extends Component {
   handleClick() {
     this.props.onChange()
   }
+
   render() {
     const {name, group, img} = this.props;
     return (

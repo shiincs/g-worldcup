@@ -1,10 +1,11 @@
 import React from 'react';
 import './css/GameTitle.scss'
 
-const GameTitle = () => {
+const GameTitle = (props) => {
+  const {stage, nowSequence, maxSequence} = props
   return (
     <div className="gameTitle">
-      <h2>Girl Gruop WorldCup Round of 16 : 1/8</h2>
+      <h2>Girl Group WorldCup Round of {stage} : {nowSequence}/{maxSequence}</h2>
     </div>
   );
 };
