@@ -104,16 +104,11 @@ const base = [
   }
 ]
 
-// const randomArr = new Array(16)
-
-// function random(arr, data) {
-//   for(let i=0; i < arr.length; i++) {
-//     arr.push(data[Math.floor(Math.random() * 2)])
-//   }
-// }
-
-// random(randomArr, data)
-// console.log(randomArr)
+// dataset array shuffle randomly
+/* 
+  base.sort(() => Math.random() - Math.random())
+  console.log(base) 
+*/
 
 class Game extends Component {
   constructor(props) {
@@ -148,6 +143,7 @@ class Game extends Component {
       winner: null
     })
   }
+
   count = 0;
   async handleChange(id) {
     if (this.state.round2.length === 2) {
