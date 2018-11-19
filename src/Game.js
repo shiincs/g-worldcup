@@ -105,10 +105,8 @@ const base = [
 ]
 
 // dataset array shuffle randomly
-/* 
-  base.sort(() => Math.random() - Math.random())
-  console.log(base) 
-*/
+base.sort(() => Math.random() - Math.random())
+console.log(base)
 
 class Game extends Component {
   constructor(props) {
@@ -129,6 +127,7 @@ class Game extends Component {
   }
 
   handleReset() {
+    base.sort(() => Math.random() - Math.random())
     this.setState({
       views:[
         base[0],
@@ -247,7 +246,7 @@ class Game extends Component {
       // 16강 로직
       this.count++;
       const round8 = this.state.round8.slice()
-      round8.push(base[id - 1])
+      round8.push(base.find(item => item.id === id));
 
       this.setState((prevState) => ({
         sequence: prevState.sequence + 1, // sequence 1씩 증
@@ -258,7 +257,6 @@ class Game extends Component {
         round8: round8
       })); 
     }
-    
   }
 
   render() {
